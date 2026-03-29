@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git remote:*)",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)"
     ]
   }
 }
