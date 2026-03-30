@@ -3,6 +3,7 @@
 ## 무엇을 했나
 
 ### 작업 내용
+
 1. 패키지 설치: `zod`, `react-hook-form`, `@hookform/resolvers`
 2. shadcn Form 컴포넌트 추가 (`components/ui/form.tsx`, `components/ui/label.tsx`)
 3. 데모 폼 컴포넌트 생성: `components/demo-form.tsx`
@@ -12,6 +13,7 @@
 4. `app/page.tsx` 업데이트
 
 ### 생성된 파일
+
 ```
 components/
 ├── demo-form.tsx          # Zod + RHF 데모 폼
@@ -31,6 +33,7 @@ study/phase1/
 ## Zod란 무엇인가 (개념 설명)
 
 ### 정의
+
 **Zod**는 TypeScript 중심의 **스키마 검증 라이브러리**입니다.
 
 ### 핵심 개념: 스키마 (Schema)
@@ -42,14 +45,10 @@ study/phase1/
 const userSchema = z.object({
   username: z
     .string()
-    .min(2)      // 최소 2자
-    .max(50),    // 최대 50자
-  email: z
-    .string()
-    .email(),    // 이메일 형식
-  age: z
-    .number()
-    .min(18),    // 18 이상만 가능
+    .min(2) // 최소 2자
+    .max(50), // 최대 50자
+  email: z.string().email(), // 이메일 형식
+  age: z.number().min(18), // 18 이상만 가능
 });
 
 // 스키마로부터 TypeScript 타입 자동 생성
@@ -64,6 +63,7 @@ type User = z.infer<typeof userSchema>;
 ### 왜 Zod를 사용하는가
 
 #### 1. 타입과 검증이 하나다
+
 ```typescript
 // ❌ 기존 방식: 따로 작성 필요
 interface User {
@@ -88,6 +88,7 @@ const user = userSchema.parse(data); // 자동 검증
 ```
 
 #### 2. 여러 곳에서 재사용
+
 ```typescript
 // 클라이언트에서 검증
 const client = userSchema.safeParse(formData);
@@ -100,6 +101,7 @@ const user = userSchema.parse(requestBody); // 같은 스키마 사용
 ```
 
 #### 3. 런타임 검증
+
 ```typescript
 const data = JSON.parse(userInput); // 어디서 온 데이터인지 알 수 없음
 
@@ -114,6 +116,7 @@ const user = userSchema.parse(data);
 ## React Hook Form (RHF) 이란 무엇인가
 
 ### 정의
+
 **React Hook Form**은 **폼 상태를 관리하고 성능을 최적화하는 라이브러리**입니다.
 
 ### 문제: 기본 React로 폼을 만들면?
@@ -139,6 +142,7 @@ export function BadForm() {
 ```
 
 **문제점:**
+
 - 입력할 때마다 리렌더링 (사용자 입력마다 화면 깜빡임)
 - state 코드가 많음
 - 검증 로직 추가하면 더 복잡해짐
@@ -162,6 +166,7 @@ export function GoodForm() {
 ```
 
 **장점:**
+
 - 리렌더링 최소화 → 빠른 성능
 - 간결한 코드
 - 검증과 쉽게 통합 가능
@@ -226,22 +231,25 @@ function onSubmit(values: FormValues) {
 ## 핵심 정리
 
 ### Zod의 역할
-| 항목 | 내용 |
-|------|------|
-| **정의** | 스키마 기반 검증 라이브러리 |
+
+| 항목          | 내용                                          |
+| ------------- | --------------------------------------------- |
+| **정의**      | 스키마 기반 검증 라이브러리                   |
 | **주요 기능** | 데이터 형태 정의 + 검증 규칙 정의 + 타입 추론 |
-| **사용 시점** | 폼 제출, API 요청/응답, 데이터베이스 저장 전 |
-| **장점** | 타입과 검증이 하나 + 런타임 안전성 |
+| **사용 시점** | 폼 제출, API 요청/응답, 데이터베이스 저장 전  |
+| **장점**      | 타입과 검증이 하나 + 런타임 안전성            |
 
 ### React Hook Form의 역할
-| 항목 | 내용 |
-|------|------|
-| **정의** | 폼 상태 관리 라이브러리 |
+
+| 항목          | 내용                                  |
+| ------------- | ------------------------------------- |
+| **정의**      | 폼 상태 관리 라이브러리               |
 | **주요 기능** | 입력값 추적 + submit 처리 + 검증 실행 |
-| **사용 시점** | 폼 렌더링 + 사용자 입력 처리 |
-| **장점** | 성능 최적화 + 간결한 코드 |
+| **사용 시점** | 폼 렌더링 + 사용자 입력 처리          |
+| **장점**      | 성능 최적화 + 간결한 코드             |
 
 ### 두 라이브러리의 관계
+
 ```
 Zod (검증 규칙)
     ↓
@@ -276,13 +284,13 @@ z.array(z.string())          // 배열
 ```typescript
 const form = useForm({ resolver: zodResolver(schema) });
 
-form.register('fieldName')   // 필드 등록
-form.handleSubmit(onSubmit)  // submit 처리
-form.watch()                 // 입력값 실시간 추적
-form.getValues()             // 현재 폼 값 조회
-form.setValue()              // 프로그래밍으로 값 설정
-form.reset()                 // 폼 초기화
-form.control                 // FormField에서 사용
+form.register('fieldName'); // 필드 등록
+form.handleSubmit(onSubmit); // submit 처리
+form.watch(); // 입력값 실시간 추적
+form.getValues(); // 현재 폼 값 조회
+form.setValue(); // 프로그래밍으로 값 설정
+form.reset(); // 폼 초기화
+form.control; // FormField에서 사용
 ```
 
 ---
@@ -290,12 +298,14 @@ form.control                 // FormField에서 사용
 ## 언제 사용하나?
 
 ### Zod 사용 예시
+
 - ✅ 사용자 입력값 검증 (폼)
 - ✅ API 응답 검증
 - ✅ 환경변수 검증 (t3-env와 함께)
 - ✅ 데이터베이스 저장 전 검증
 
 ### React Hook Form 사용 예시
+
 - ✅ 회원가입/로그인 폼
 - ✅ 프로필 수정 폼
 - ✅ 검색 필터

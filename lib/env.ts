@@ -1,5 +1,5 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
 /**
  * 환경변수 검증 및 타입 정의
@@ -13,9 +13,7 @@ export const env = createEnv({
    * 클라이언트 번들에 포함되지 않음 (보안)
    */
   server: {
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+    NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 
     // Phase 2: 데이터베이스 (나중에 추가)
     // DATABASE_URL: z.string().url().optional(),
