@@ -15,12 +15,13 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 
-    // Phase 2: 데이터베이스 (나중에 추가)
-    // DATABASE_URL: z.string().url().optional(),
+    // Phase 2: 데이터베이스
+    // Supabase URL이 쿼리 파라미터를 포함하므로 .url() 대신 .string() 사용
+    DATABASE_URL: z.string().min(1),
+    DIRECT_URL: z.string().min(1),
 
-    // Phase 2: 인증 (나중에 추가)
-    // NEXTAUTH_SECRET: z.string().optional(),
-    // NEXTAUTH_URL: z.string().url().optional(),
+    // Phase 2: 인증
+    AUTH_SECRET: z.string().min(32),
   },
 
   /**
@@ -38,6 +39,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    DATABASE_URL: process.env.DATABASE_URL,
+    DIRECT_URL: process.env.DIRECT_URL,
+    AUTH_SECRET: process.env.AUTH_SECRET,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
 
