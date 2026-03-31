@@ -7,7 +7,7 @@ allowed-tools: 'Bash(git:*)'
 
 # claude custom command: commit
 
-컨벤셔널 커밋 메시지로 잘 포멧된 커밋을 생성합니다.
+이모지와 컨벤셔널 커밋 메시지로 잘 포멧된 커밋을 생성합니다.
 
 ## 사용법
 
@@ -26,7 +26,7 @@ allowed-tools: 'Bash(git:*)'
 
 ## 커밋 포멧
 
-`<이모지> <타입>: <설명>`
+<이모지> <타입>: <설명>
 
 **타입**
 

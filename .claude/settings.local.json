@@ -5,7 +5,8 @@
       "Bash(npx:*)",
       "Bash(npm run:*)",
       "Bash(npm install:*)",
-      "mcp__playwright"
+      "mcp__playwright",
+      "Skill(git:commit)"
     ]
   }
 }
